@@ -16,7 +16,7 @@ A lightweight REST API built with [Fiber](https://gofiber.io/) and [GORM](https:
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/task-manager-api.git
+git clone https://github.com/Reyshal/task-manager-api.git
 cd task-manager-api
 ```
 
@@ -26,14 +26,12 @@ go mod tidy
 ```
 
 ### 3. Set up `.env` file
-Create a `.env` file at root:
+Copy and rename `.env.example` into a `.env` file at root, you can modified it as you like:
 ```env
 PORT=8080
 DATABASE_URL=postgres://user:password@localhost:5432/taskdb
 JWT_SECRET=your_jwt_secret_key
 ```
-
-> 💡 You can also use SQLite: `DATABASE_URL=sqlite.db`
 
 ### 4. Run the app
 ```bash
