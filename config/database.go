@@ -1,10 +1,9 @@
-package database
+package config
 
 import (
 	"fmt"
 	"log"
 
-	"github.com/Reyshal/task-manager-api/config"
 	"github.com/Reyshal/task-manager-api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -14,7 +13,7 @@ var DB *gorm.DB
 
 func InitDatabase() {
 	var err error
-	config := config.ConfigInstance.Database
+	config := ConfigInstance.Database
 
 	// Connect to the database
 	log.Println("🚀 Connecting to database...")

@@ -4,18 +4,17 @@ import (
 	"log"
 
 	"github.com/Reyshal/task-manager-api/config"
-	"github.com/Reyshal/task-manager-api/database"
+	"github.com/Reyshal/task-manager-api/routes"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
 	log.Println("🚀 Starting the server...")
 
-	// Load config
+	// Load config and database
 	config.InitConfig()
-
-	// Connect to the database
-	database.InitDatabase()
+	config.InitDatabase()
 
 	// Create a new Fiber instance
 	app := fiber.New(fiber.Config{
@@ -31,10 +30,17 @@ func main() {
 		},
 	})
 
-	// Define a route
-	app.Get("/", func(c *fiber.Ctx) error {
+	// Enable CORS
+	app.Use(cors.New())
+
+	// Setup routes
+	routes.SetupRoutes(app)
+
+	// Health check route
+	app.Get("/health", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
-			"message": "Hello, World!",
+			"status":  "ok",
+			"message": "✅ Task Manager API is running!",
 		})
 	})
 
