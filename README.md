@@ -8,7 +8,7 @@ A lightweight REST API built with [Fiber](https://gofiber.io/) and [GORM](https:
 - [Fiber](https://docs.gofiber.io/) — web framework
 - [GORM](https://gorm.io/) — ORM for database
 - [JWT](https://docs.gofiber.io/api/middleware/jwt) — authentication middleware
-- PostgreSQL / SQLite
+- PostgreSQL
 
 ---
 
@@ -26,16 +26,11 @@ go mod tidy
 ```
 
 ### 3. Set up `.env` file
-Copy and rename `.env.example` into a `.env` file at root, you can modified it as you like:
-```env
-PORT=8080
-DATABASE_URL=postgres://user:password@localhost:5432/taskdb
-JWT_SECRET=your_jwt_secret_key
-```
+Copy and rename `.env.example` into a `.env` file at root, you can modified it as you like.
 
 ### 4. Run the app
 ```bash
-go run main.go
+go run ./
 ```
 
 ---
@@ -61,6 +56,8 @@ Use `Authorization: Bearer <token>` header for protected routes.
 ```bash
 .
 ├── main.go
+├── config/
+│   └── config.go
 ├── database/
 │   └── db.go
 ├── models/
