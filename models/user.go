@@ -8,8 +8,8 @@ import (
 
 type User struct {
 	ID        uint      `json:"id" gorm:"primary_key"`
-	Username  string    `json:"username" gorm:"unique;not null"`
 	Email     string    `json:"email" gorm:"unique;not null"`
+	Username  string    `json:"username"`
 	Password  string    `json:"-" gorm:"not null"` // password will not be returned
 	Task      []Task    `json:"tasks,omitempty" gorm:"foreignKey:UserID"`
 	CreatedAt time.Time `json:"created_at"`
