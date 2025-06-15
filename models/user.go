@@ -11,7 +11,6 @@ type User struct {
 	Email     string    `json:"email" gorm:"unique;not null"`
 	Username  string    `json:"username"`
 	Password  string    `json:"-" gorm:"not null"` // password will not be returned
-	Task      []Task    `json:"tasks,omitempty" gorm:"foreignKey:UserID"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

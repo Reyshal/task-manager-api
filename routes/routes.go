@@ -8,20 +8,28 @@ import (
 )
 
 func SetupRoutes(app *fiber.App) {
+	// Health check route
+	app.Get("/health", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"status": "So far so good 🚀",
+		})
+	})
+
 	// Auth routes
 	auth := app.Group("/auth")
 	auth.Post("/register", handlers.Register)
 	auth.Post("/login", handlers.Login)
 
-	// TODO: create Protected task routes
+	// Protected routes
 	api := app.Group("/api", jwtware.New(jwtware.Config{
 		SigningKey: jwtware.SigningKey{
 			Key: []byte(config.ConfigInstance.JWT.SecretKey),
 		},
 	}))
-	api.Get("/authorized", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{
-			"message": "Authorized",
-		})
-	})
+
+	// Task routes
+	api.Get("/tasks", handlers.GetTasks)
+	api.Post("/tasks", handlers.CreateTask)
+	api.Put("/tasks/:id", handlers.UpdateTask)
+	api.Delete("/tasks/:id", handlers.DeleteTask)
 }
