@@ -25,6 +25,8 @@ func SetupRoutes(app *fiber.App) {
 		SigningKey: jwtware.SigningKey{
 			Key: []byte(config.ConfigInstance.JWT.SecretKey),
 		},
+		TokenLookup: "header:Authorization,cookie:token",
+		AuthScheme:  "Bearer",
 	}))
 
 	// Task routes

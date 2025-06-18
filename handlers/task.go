@@ -13,12 +13,19 @@ func GetTasks(c *fiber.Ctx) error {
 	user := c.Locals("user").(*jwt.Token)
 	userID := uint(user.Claims.(jwt.MapClaims)["user_id"].(float64))
 
+	// Get filter params
+	filter := c.Query("filter")
+	if filter == "" {
+		filter = "all"
+	}
+
 	// Get tasks
 	taskService := services.NewTaskService()
-	tasks, err := taskService.GetTasks(userID)
+	tasks, err := taskService.GetTasks(userID, filter)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Failed to get tasks",
+			"error":   "Failed to get tasks",
+			"message": err,
 		})
 	}
 
@@ -82,6 +89,8 @@ func UpdateTask(c *fiber.Ctx) error {
 
 	// Update task
 	task.Title = data.Title
+	task.Completed = data.Completed
+
 	if err := taskService.Update(task); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": "Failed to update task",

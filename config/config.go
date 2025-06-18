@@ -8,6 +8,7 @@ import (
 )
 
 type Config struct {
+	Env      string
 	Database DatabaseConfig
 	JWT      JWTConfig
 	Server   ServerConfig
@@ -41,6 +42,7 @@ func InitConfig() {
 	}
 
 	ConfigInstance = &Config{
+		Env: os.Getenv("ENV"),
 		Database: DatabaseConfig{
 			Host:     os.Getenv("DB_HOST"),
 			User:     os.Getenv("DB_USER"),

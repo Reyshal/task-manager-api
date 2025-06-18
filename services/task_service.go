@@ -16,12 +16,20 @@ func NewTaskService() *TaskService {
 	}
 }
 
-func (s *TaskService) GetTasks(userID uint) ([]models.Task, error) {
+func (s *TaskService) GetTasks(userID uint, filter string) ([]models.Task, error) {
 	var tasks []models.Task
-	if err := s.db.Where("user_id = ?", userID).
-		Order("created_at").Find(&tasks).Error; err != nil {
+
+	query := s.db.Where("user_id = ?", userID)
+
+	// Filter tasks
+	if filter != "all" {
+		query = query.Where("completed = ?", filter == "completed")
+	}
+
+	if err := query.Order("created_at").Find(&tasks).Error; err != nil {
 		return nil, err
 	}
+
 	return tasks, nil
 }
 
