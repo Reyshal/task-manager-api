@@ -48,39 +48,7 @@ go run ./
 - `DELETE /api/tasks/:id` — delete task
 
 Use `Authorization: Bearer <token>` header for protected routes.
-
----
-
-## 🗂 Project Structure
-
-```bash
-.
-├── main.go
-├── config/
-│   └── config.go
-├── database/
-│   └── db.go
-├── models/
-│   └── user.go
-│   └── task.go
-├── handlers/
-│   └── auth.go
-│   └── task.go
-├── middleware/
-│   └── jwt.go
-├── routes/
-│   └── routes.go
-└── .env
-```
-
----
-
-## 🧪 Todo / Features
-
-- [ ] JWT Auth
-- [ ] Password hashing with bcrypt
-- [ ] Unit tests
-- [ ] Dockerfile
+Its also support auth by cookie for protected routes.
 
 ---
 
